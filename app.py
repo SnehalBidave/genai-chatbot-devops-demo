@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from openai import OpenAI
 import os
 
@@ -13,7 +13,8 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_input = request.form.get("user_input")
+    data = request.get_json()
+    user_input = data.get("message") if data else ""
     reply = ""
 
     if not user_input:
@@ -31,7 +32,7 @@ def chat():
         except Exception as e:
             reply = f"Error: {str(e)}"
 
-    return render_template("chat.html", user_input=user_input, reply=reply)
+    return jsonify({"reply": reply})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
