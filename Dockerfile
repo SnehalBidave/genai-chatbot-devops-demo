@@ -1,20 +1,18 @@
-# Use a lightweight Python base image
+# Use slim Python image
 FROM python:3.10-slim
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy only the dependency file first (for caching)
+# Copy requirements and install
 COPY requirements.txt .
-
-# Install dependencies without cache to keep image small
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
+# Copy app and templates
 COPY . .
 
-# Expose Flask port
+# Expose port
 EXPOSE 5000
 
-# Use Gunicorn for production (more stable than Flask dev server)
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# Start app
+CMD ["python", "app.py"]
