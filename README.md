@@ -30,7 +30,7 @@ No local setup needed — everything’s ready in GitHub.
 ---
 
 ### ✅ Next Step
-Now we’ll:
+Now we’ll::
 1. **Create DockerHub repo**
 2. **Build + Push Docker image using GitHub Actions**
 3. **Deploy on AWS EC2**
